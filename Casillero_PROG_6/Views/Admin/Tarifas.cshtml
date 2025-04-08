@@ -1,5 +1,58 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Casillero_PROG_6.Models.Tarifa>
 @{
+    ViewData["Title"] = "Administración de Tarifas/Servicios";
 }
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Administración de Tarifas/Servicios</h2>
+    <a asp-action="CreateTarifa" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Nueva Tarifa
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h4>Listado de Tarifas</h4>
+    </div>
+    <div class="card-body">
+        @if (Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre del Servicio</th>
+                            <th>Costo por Kilo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.nombre</td>
+                                <td>$@item.Costo.ToString("N2")</td>
+                                <td>
+                                    <a asp-action="EditTarifa" asp-route-id="@item.Id" class="btn btn-sm btn-primary">
+                                        <i class="bi bi-pencil"></i> Editar
+                                    </a>
+                                    <a asp-action="DeleteTarifa" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                                        <i class="bi bi-trash"></i> Eliminar
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                No hay tarifas registradas.
+            </div>
+        }
+    </div>
+</div>

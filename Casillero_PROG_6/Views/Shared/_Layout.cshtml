@@ -1,50 +1,199 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Casillero_PROG_6</title>
+    <title>@ViewData["Title"] - Casillero Express</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Casillero_PROG_6.styles.css" asp-append-version="true" />
+    <style>
+        /* Estilos para el layout con sidebar */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #f8f9fa;
+            border-right: 1px solid #dee2e6;
+            padding: 20px 0;
+        }
+
+            .sidebar .nav-link {
+                padding: 10px 20px;
+                color: #333;
+            }
+
+                .sidebar .nav-link:hover {
+                    background-color: #e9ecef;
+                }
+
+                .sidebar .nav-link.active {
+                    background-color: #007bff;
+                    color: white;
+                }
+
+                .sidebar .nav-link i {
+                    margin-right: 10px;
+                }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .dropdown-menu {
+            margin-left: 20px;
+            border: none;
+            background-color: #f0f0f0;
+            width: 90%;
+        }
+
+        .top-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+        }
+
+            .top-header .navbar-brand {
+                color: white;
+            }
+
+        @* Usando la directiva de Razor para escapar el símbolo @ *@
+        @@media (max-width: 768px) {
+            .sidebar
+
+        {
+            width: 100%;
+            position: static;
+            height: auto;
+        }
+
+        .main-container {
+            flex-direction: column;
+        }
+
+        
+
+        .main-container {
+            flex-direction: column;
+        }
+
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Casillero_PROG_6</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
+    <!-- Header Superior -->
+    <header class="top-header">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <a class="navbar-brand" href="/">
+                        <img src="~/images/logo.png" alt="Casillero Express" height="40" class="d-inline-block align-middle" />
+                        Casillero Express
+                    </a>
+                </div>
+                <div class="col-md-4 text-end">
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <span class="me-3">¡Hola, @User.Identity?.Name!</span>
+                        <form class="d-inline" asp-controller="Account" asp-action="LogOff">
+                            <button type="submit" class="btn btn-outline-light btn-sm">Cerrar sesión</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light btn-sm me-2">Iniciar sesión</a>
+                        <a asp-controller="Account" asp-action="Register" class="btn btn-light btn-sm">Registrarse</a>
+                    }
                 </div>
             </div>
-        </nav>
+        </div>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+    <div class="main-container">
+        <!-- Sidebar - Menú Izquierdo -->
+        <nav class="sidebar">
+            <div class="list-group list-group-flush">
+                <a asp-controller="Home" asp-action="Index" class="list-group-item list-group-item-action @(ViewContext.RouteData.Values["Action"].ToString() == "Index" && ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")">
+                    <i class="bi bi-house-door"></i> Información
+                </a>
+
+                <a asp-controller="Home" asp-action="Servicios" class="list-group-item list-group-item-action @(ViewContext.RouteData.Values["Action"].ToString() == "Servicios" ? "active" : "")">
+                    <i class="bi bi-truck"></i> Servicios
+                </a>
+
+                <a asp-controller="Account" asp-action="Register" class="list-group-item list-group-item-action @(ViewContext.RouteData.Values["Action"].ToString() == "Register" ? "active" : "")">
+                    <i class="bi bi-person-plus"></i> Registro
+                </a>
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-controller="User" asp-action="Paquetes" class="list-group-item list-group-item-action @(ViewContext.RouteData.Values["Action"].ToString() == "Paquetes" && ViewContext.RouteData.Values["Controller"].ToString() == "User" ? "active" : "")">
+                        <i class="bi bi-box-seam"></i> Ingreso de Paquetes
+                    </a>
+
+                    @if (Context.Session.GetInt32("UserType") == 2)
+                    {
+                        <a class="list-group-item list-group-item-action" data-bs-toggle="collapse" href="#adminMenu" role="button" aria-expanded="false" aria-controls="adminMenu">
+                            <i class="bi bi-gear"></i> Administración <i class="bi bi-chevron-down float-end"></i>
+                        </a>
+                        <div class="collapse @(ViewContext.RouteData.Values["Controller"].ToString() == "Admin" ? "show" : "")" id="adminMenu">
+                            <a asp-controller="Admin" asp-action="Tarifas" class="list-group-item list-group-item-action ps-4 @(ViewContext.RouteData.Values["Action"].ToString() == "Tarifas" ? "active" : "")">
+                                <i class="bi bi-cash-coin"></i> Servicios/Tarifas
+                            </a>
+                            <a asp-controller="Admin" asp-action="Categorias" class="list-group-item list-group-item-action ps-4 @(ViewContext.RouteData.Values["Action"].ToString() == "Categorias" ? "active" : "")">
+                                <i class="bi bi-tags"></i> Categorías
+                            </a>
+                            <a asp-controller="Admin" asp-action="Usuarios" class="list-group-item list-group-item-action ps-4 @(ViewContext.RouteData.Values["Action"].ToString() == "Usuarios" ? "active" : "")">
+                                <i class="bi bi-people"></i> Usuarios
+                            </a>
+                            <a asp-controller="Admin" asp-action="Paquetes" class="list-group-item list-group-item-action ps-4 @(ViewContext.RouteData.Values["Action"].ToString() == "Paquetes" && ViewContext.RouteData.Values["Controller"].ToString() == "Admin" ? "active" : "")">
+                                <i class="bi bi-box"></i> Paquetes
+                            </a>
+                        </div>
+                    }
+                }
+
+                <a asp-controller="Home" asp-action="Contact" class="list-group-item list-group-item-action @(ViewContext.RouteData.Values["Action"].ToString() == "Contact" ? "active" : "")">
+                    <i class="bi bi-envelope"></i> Contacto
+                </a>
+            </div>
+        </nav>
+
+        <!-- Contenido Principal -->
+        <div class="content">
             @RenderBody()
-        </main>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted py-3">
         <div class="container">
-            &copy; 2025 - Casillero_PROG_6 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Now.Year - Casillero Express - Versión 1.0
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // Mantener el menú de administración abierto si estamos en una página de administración
+        $(document).ready(function() {
+            if (window.location.href.indexOf("/Admin/") > -1) {
+                $("#adminMenu").addClass("show");
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,5 +1,71 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Casillero_PROG_6.Models.Paquete
 @{
+    ViewData["Title"] = "Resumen de Paquete";
 }
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-primary text-white text-center">
+                <h3>Proforma de Envío</h3>
+                <p class="mb-0">Fecha: @DateTime.Now.ToString("dd/MM/yyyy")</p>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th class="bg-light text-end" style="width:40%">Nombre del Cliente:</th>
+                            <td>@ViewBag.Usuario.Nombre</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-end">Email:</th>
+                            <td>@Model.Correo</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-end">Tracking:</th>
+                            <td>@Model.Tracking</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-end">Monto de la compra:</th>
+                            <td>$@Model.Valor.ToString("N2")</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-end">Peso:</th>
+                            <td>@Model.Peso kg</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-end">Categoría:</th>
+                            <td>@ViewBag.Categoria</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-end">Servicio:</th>
+                            <td>@ViewBag.Servicio</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-end">Flete:</th>
+                            <td>$@Model.Flete.ToString("N2")</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-light text-end">Impuestos:</th>
+                            <td>$@Model.Impuestos.ToString("N2")</td>
+                        </tr>
+                        <tr class="table-info">
+                            <th class="text-end">Total a pagar:</th>
+                            <td class="fw-bold">$@Model.Total.ToString("N2")</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="alert alert-info mt-3">
+                    <h5>Información importante:</h5>
+                    <p>Su paquete ha sido registrado exitosamente. El estado actual es: <strong>@Model.Estado</strong>.</p>
+                    <p>El número de tracking interno es: <strong>@Model.id</strong>. Guarde este número para consultas futuras.</p>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a asp-action="Paquetes" class="btn btn-primary">Registrar otro paquete</a>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Volver al Inicio</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Acceso Denegado";
 }
+
+<div class="text-center">
+    <h1 class="text-danger">Acceso Denegado</h1>
+    <img src="~/images/access-denied.png" alt="Acceso Denegado" class="img-fluid mb-3" style="max-width: 300px;" />
+    <h2 class="mb-4">No tiene permisos para acceder a esta página</h2>
+    <p>Esta sección está reservada para usuarios con permisos administrativos.</p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Volver al Inicio</a>
+</div>

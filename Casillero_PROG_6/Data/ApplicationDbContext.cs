@@ -37,16 +37,17 @@ namespace Casillero_PROG_6.Data
             );
 
             modelBuilder.Entity<Usuario>().HasData(
-                new Usuario
-                {
-                    Id = 1,
-                    NombreUsuario = "admin",
-                    Nombre = "Administrador",
-                    Email = "admin@casillero.com",
-                    Clave = "admin123",
-                    Tipo = 2
-                }
-            );
+     new Usuario
+     {
+         Id = 1,
+         NombreUsuario = "admin",
+         Nombre = "Administrador",
+         Email = "admin@casillero.com",
+         Clave = "admin123",
+         Tipo = 2,
+         Telefono = "1234-5678" // Añadido el teléfono
+     }
+ );
         }
     }
 }
