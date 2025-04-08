@@ -128,3 +128,42 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+<script>
+    // Función para calcular costos usando el web service
+    function calcularCostos() {
+        const servicio = $('#servicio').val();
+        const categoria = $('#Categoria').val();
+        const peso = $('#Peso').val();
+        const valor = $('#Valor').val();
+
+        if (servicio && categoria && peso && valor) {
+            // Calcular flete
+            $.getJSON('/api/CargoService/CalcularFlete', {
+                servicioId: servicio,
+                peso: peso
+            }, function(flete) {
+                // Calcular impuesto
+                $.getJSON('/api/CargoService/CalcularImpuesto', {
+                    categoriaId: categoria,
+                    valor: valor
+                }, function(impuesto) {
+                    // Calcular total
+                    $.getJSON('/api/CargoService/CalcularTotal', {
+                        flete: flete,
+                        impuesto: impuesto
+                    }, function(total) {
+                        // Mostrar los resultados
+                        $('#calculoFlete').text('Flete estimado: $' + flete.toFixed(2));
+                        $('#calculoImpuesto').text('Impuesto estimado: $' + impuesto.toFixed(2));
+                        $('#calculoTotal').text('Total estimado: $' + total.toFixed(2));
+                        $('#calculoResultados').show();
+                    });
+                });
+            });
+        }
+    }
+
+    // Eventos para calcular al cambiar valores
+    $('#servicio, #Categoria, #Peso, #Valor').change(calcularCostos);
+</script>

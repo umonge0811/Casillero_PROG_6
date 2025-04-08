@@ -19,7 +19,7 @@ namespace Casillero_PROG_6.Controllers
         public IActionResult Index()
         {
             ViewBag.Version = "1.0";
-            ViewBag.Developers = "Tu Nombre";
+            ViewBag.Developers = "Ulises Monge Aguilar";
             return View();
         }
 

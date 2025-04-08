@@ -1,5 +1,4 @@
-﻿<!-- Views/Admin/EditTarifa.cshtml -->
-@model Casillero_PROG_6.Models.Tarifa
+﻿@model Casillero_PROG_6.Models.Tarifa
 @{
     ViewData["Title"] = "Editar Tarifa/Servicio";
 }
@@ -17,7 +16,7 @@
 
                     <div class="mb-3">
                         <label asp-for="nombre" class="form-label">Nombre del Servicio</label>
-                        <input asp-for="nombre" class="form-control" />
+                        <input asp-for="nombre" class="form-control" placeholder="Ej: Envío Express" />
                         <span asp-validation-for="nombre" class="text-danger"></span>
                     </div>
 

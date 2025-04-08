@@ -1,34 +1,51 @@
 ﻿@{
-    ViewData["Title"] = "Inicio";
+    ViewData["Title"] = "Inicio - Casillero Express";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bienvenido a Casillero Express</h1>
-    <p class="lead">Su mejor opción para compras por internet desde USA y China</p>
-
-    <div class="embed-responsive embed-responsive-16by9 mb-4">
-        <video controls class="embed-responsive-item w-100" style="max-height: 500px;">
-            <source src="~/videos/intro.mp4" type="video/mp4">
-            Tu navegador no soporta videos HTML5.
-        </video>
+<div class="card mb-4">
+    <div class="card-body text-center">
+        <h1 class="card-title">Bienvenido a Casillero Express</h1>
+        <p class="lead">Su solución confiable para compras internacionales</p>
+        
+        <div class="ratio ratio-16x9 mb-4">
+            <video controls class="embed-responsive-item">
+                <source src="~/videos/intro.mp4" type="video/mp4">
+                Su navegador no soporta el elemento de video.
+            </video>
+        </div>
+        
+        <a href="@Url.Action("Dashboard", "Home")" class="btn btn-primary btn-lg">
+            <i class="bi bi-box-arrow-in-right"></i> Ingresar al Sistema
+        </a>
     </div>
+</div>
 
-    <p>
-        <a asp-controller="User" asp-action="Paquetes" class="btn btn-primary btn-lg">Ingresar al Sistema &raquo;</a>
-    </p>
-
-    <div class="row mt-4">
-        <div class="col-md-4">
-            <h3>Empresa</h3>
-            <p>Casillero Express - Su mejor opción para compras internacionales</p>
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-building text-primary" style="font-size: 3rem;"></i>
+                <h4 class="card-title mt-3">Nuestra Empresa</h4>
+                <p class="card-text">Somos líderes en soluciones de importación desde 2010, facilitando sus compras internacionales.</p>
+            </div>
         </div>
-        <div class="col-md-4">
-            <h3>Versión</h3>
-            <p>@ViewBag.Version</p>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-code-slash text-primary" style="font-size: 3rem;"></i>
+                <h4 class="card-title mt-3">Versión del Sistema</h4>
+                <p class="card-text">Versión @ViewBag.Version - Actualizada para brindarle la mejor experiencia de usuario.</p>
+            </div>
         </div>
-        <div class="col-md-4">
-            <h3>Desarrollado por</h3>
-            <p>@ViewBag.Developers</p>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-people text-primary" style="font-size: 3rem;"></i>
+                <h4 class="card-title mt-3">Desarrolladores</h4>
+                <p class="card-text">@ViewBag.Developers - Ingeniería de Sistemas, UACA</p>
+            </div>
         </div>
     </div>
 </div>
