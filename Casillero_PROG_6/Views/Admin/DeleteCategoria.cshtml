@@ -1,0 +1,38 @@
+﻿@model Casillero_PROG_6.Models.Categoria
+@{
+    ViewData["Title"] = "Eliminar Categoría";
+}
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4>¿Está seguro que desea eliminar esta categoría?</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <strong>Advertencia:</strong> Esta acción no se puede deshacer. La eliminación de esta categoría podría afectar a los paquetes que la utilizan.
+                </div>
+
+                <dl class="row">
+                    <dt class="col-sm-4">ID:</dt>
+                    <dd class="col-sm-8">@Model.Id</dd>
+
+                    <dt class="col-sm-4">Nombre:</dt>
+                    <dd class="col-sm-8">@Model.nombre</dd>
+
+                    <dt class="col-sm-4">Porcentaje:</dt>
+                    <dd class="col-sm-8">@Model.porcentaje%</dd>
+                </dl>
+
+                <form asp-action="DeleteCategoria" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-action="Categorias" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

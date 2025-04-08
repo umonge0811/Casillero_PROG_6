@@ -1,0 +1,84 @@
+﻿@model Casillero_PROG_6.Models.Paquete
+@{
+    ViewData["Title"] = "Eliminar Paquete";
+}
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4>¿Está seguro que desea eliminar este paquete?</h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <strong>Advertencia:</strong> Esta acción no se puede deshacer. Se eliminará permanentemente toda la información del paquete.
+                </div>
+
+                <dl class="row">
+                    <dt class="col-sm-4">ID:</dt>
+                    <dd class="col-sm-8">@Model.id</dd>
+
+                    <dt class="col-sm-4">Tracking:</dt>
+                    <dd class="col-sm-8">@Model.Tracking</dd>
+
+                    <dt class="col-sm-4">Usuario:</dt>
+                    <dd class="col-sm-8">@Model.Usuario</dd>
+
+                    <dt class="col-sm-4">Fecha:</dt>
+                    <dd class="col-sm-8">@Model.fecha.ToString("dd/MM/yyyy")</dd>
+
+                    <dt class="col-sm-4">Estado:</dt>
+                    <dd class="col-sm-8">
+                        @switch (Model.Estado)
+                        {
+                            case "Registrado":
+                                        <span class="badge bg-info">@Model.Estado</span>
+                                break;
+                            case "Recibido Bodega":
+                                        <span class="badge bg-primary">@Model.Estado</span>
+                                break;
+                            case "En Transito CR":
+                                        <span class="badge bg-warning text-dark">@Model.Estado</span>
+                                break;
+                            case "Recibido CR":
+                                        <span class="badge bg-secondary">@Model.Estado</span>
+                                break;
+                            case "Para entrega":
+                                        <span class="badge bg-dark">@Model.Estado</span>
+                                break;
+                            case "Entregado":
+                                        <span class="badge bg-success">@Model.Estado</span>
+                                break;
+                            default:
+                                        <span class="badge bg-light text-dark">@Model.Estado</span>
+                                break;
+                        }
+                    </dd>
+
+                    <dt class="col-sm-4">Servicio:</dt>
+                    <dd class="col-sm-8">@Model.TarifaNavigation.nombre</dd>
+
+                    <dt class="col-sm-4">Categoría:</dt>
+                    <dd class="col-sm-8">@Model.CategoriaNavigation.nombre</dd>
+
+                    <dt class="col-sm-4">Peso:</dt>
+                    <dd class="col-sm-8">@Model.Peso kg</dd>
+
+                    <dt class="col-sm-4">Valor:</dt>
+                    <dd class="col-sm-8">$@Model.Valor.ToString("N2")</dd>
+
+                    <dt class="col-sm-4">Total:</dt>
+                    <dd class="col-sm-8">$@Model.Total.ToString("N2")</dd>
+                </dl>
+
+                <form asp-action="DeletePaquete" method="post">
+                    <input type="hidden" asp-for="id" />
+                    <div class="d-flex justify-content-between mt-4">
+                        <a asp-action="Paquetes" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
